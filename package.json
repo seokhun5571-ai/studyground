@@ -1,0 +1,36 @@
+{
+  "name": "studyground-mvp",
+  "version": "1.0.0",
+  "description": "스터디그라운드 MVP 시스템",
+  "main": "server/server.js",
+  "scripts": {
+    "start": "NODE_ENV=production node server/server.js",
+    "dev": "nodemon server/server.js",
+    "build": "cd client && npm run build && cd ../admin && npm run build",
+    "build:client": "cd client && npm run build",
+    "build:admin": "cd admin && npm run build",
+    "init-db": "psql -U postgres -f database/schema.sql",
+    "seed-db": "psql -U postgres -d studyground -f database/seed.sql"
+  },
+  "dependencies": {
+    "bcrypt": "^5.1.1",
+    "cors": "^2.8.5",
+    "dotenv": "^16.3.1",
+    "express": "^4.18.2",
+    "jsonwebtoken": "^9.0.2",
+    "pg": "^8.11.3",
+    "socket.io": "^4.7.4",
+    "sqlite3": "^5.1.7"
+  },
+  "devDependencies": {
+    "nodemon": "^3.0.1"
+  },
+  "keywords": [
+    "studyground",
+    "attendance",
+    "kiosk",
+    "dashboard"
+  ],
+  "author": "StudyGround Team",
+  "license": "MIT"
+}
