@@ -33,21 +33,19 @@ const CheckInSuccess = () => {
           </div>
         </div>
 
-        <h1 className="text-6xl font-bold text-green-600 mb-8">체크인 완료!</h1>
+        <h1 className="text-6xl font-bold text-green-600 mb-8">
+          {data.student?.name || '학생'}님 입실되었습니다
+        </h1>
 
         {/* 학생 정보 */}
         <div className="space-y-4 text-2xl">
           <div className="flex justify-between items-center border-b pb-3">
-            <span className="text-gray-600">이름</span>
-            <span className="font-bold">{data.student.name}</span>
-          </div>
-          <div className="flex justify-between items-center border-b pb-3">
             <span className="text-gray-600">좌석</span>
-            <span className="font-bold text-blue-600 text-4xl">{data.seat}번</span>
+            <span className="font-bold text-blue-600 text-4xl">{data.seatNumber || data.seat}번</span>
           </div>
           <div className="flex justify-between items-center border-b pb-3">
             <span className="text-gray-600">입실 시간</span>
-            <span className="font-bold">{new Date(data.checkInTime).toLocaleTimeString('ko-KR')}</span>
+            <span className="font-bold">{new Date(data.checkInTime || Date.now()).toLocaleTimeString('ko-KR')}</span>
           </div>
         </div>
 
@@ -63,9 +61,9 @@ const CheckInSuccess = () => {
         )}
 
         {/* 안내 메시지 */}
-        <div className="mt-8 text-xl text-gray-600">
-          <p>좌석으로 이동하여 학습을 시작하세요 📚</p>
-          <p className="mt-4 text-lg text-gray-500">(5초 후 자동으로 메인 화면으로 이동합니다)</p>
+        <div className="mt-8 text-3xl text-gray-700 font-bold">
+          <p>오늘도 화이팅! 💪</p>
+          <p className="mt-4 text-xl text-gray-500">3초 후 자동으로 메인 화면으로 돌아갑니다...</p>
         </div>
       </div>
     </div>

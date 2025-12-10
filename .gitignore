@@ -12,6 +12,7 @@ dist/
 build/
 client/dist/
 admin/dist/
+public-dashboard/dist/
 landing/dist/
 
 # Database
