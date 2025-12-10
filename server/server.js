@@ -20,6 +20,9 @@ if (process.env.NODE_ENV === 'production') {
     app.get('/kiosk/*', (req, res) => {
       res.sendFile(path.join(clientBuildPath, 'index.html'));
     });
+    console.log('✅ 태블릿 키오스크 빌드 파일 로드됨:', clientBuildPath);
+  } else {
+    console.warn('⚠️  태블릿 키오스크 빌드 파일 없음:', clientBuildPath);
   }
 
   // 관리자 대시보드 (admin)
@@ -29,11 +32,40 @@ if (process.env.NODE_ENV === 'production') {
     app.get('/admin/*', (req, res) => {
       res.sendFile(path.join(adminBuildPath, 'index.html'));
     });
+    console.log('✅ 관리자 대시보드 빌드 파일 로드됨:', adminBuildPath);
+  } else {
+    console.warn('⚠️  관리자 대시보드 빌드 파일 없음:', adminBuildPath);
   }
 
   // 루트 경로는 태블릿 키오스크로 리다이렉트
   app.get('/', (req, res) => {
-    res.redirect('/kiosk');
+    if (fs.existsSync(clientBuildPath)) {
+      res.redirect('/kiosk');
+    } else {
+      res.json({ 
+        message: '스터디그라운드 서버가 실행 중입니다.',
+        status: 'running',
+        endpoints: {
+          api: '/api',
+          kiosk: '/kiosk',
+          admin: '/admin'
+        },
+        note: '빌드 파일이 없습니다. Railway에서 빌드가 완료되었는지 확인하세요.'
+      });
+    }
+  });
+} else {
+  // 개발 모드에서도 기본 응답 제공
+  app.get('/', (req, res) => {
+    res.json({ 
+      message: '스터디그라운드 개발 서버가 실행 중입니다.',
+      status: 'development',
+      endpoints: {
+        api: '/api',
+        kiosk: 'http://localhost:3000',
+        admin: 'http://localhost:3001'
+      }
+    });
   });
 }
 

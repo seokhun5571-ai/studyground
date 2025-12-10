@@ -6,9 +6,10 @@
   "scripts": {
     "start": "NODE_ENV=production node server/server.js",
     "dev": "nodemon server/server.js",
-    "build": "cd client && npm run build && cd ../admin && npm run build",
-    "build:client": "cd client && npm run build",
-    "build:admin": "cd admin && npm run build",
+    "build": "npm run build:client && npm run build:admin",
+    "build:client": "cd client && npm install && npm run build",
+    "build:admin": "cd admin && npm install && npm run build",
+    "postinstall": "npm run build",
     "init-db": "psql -U postgres -f database/schema.sql",
     "seed-db": "psql -U postgres -d studyground -f database/seed.sql"
   },
